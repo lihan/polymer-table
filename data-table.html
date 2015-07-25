@@ -24,7 +24,9 @@ Example:
     </style>
 
     <template>
-        <table>
+
+        <div class="loading-indicator" hidden$="{{!isLoading}}">Loading...</div>
+        <table hidden$="{{isLoading}}">
             <thead>
                 <tr>
                     <template is="dom-repeat" items="{{getColumns(tableData, headings)}}">
@@ -53,7 +55,7 @@ Example:
         properties: {
             loading: {
                 type: Boolean,
-                value: false
+                value: true
             },
             page: {
                 type: Number
@@ -63,7 +65,12 @@ Example:
                 value: 100
             },
             tableData: {
-                type: Array
+                type: Array,
+                observer: '_tableDataChanged'
+            },
+            isLoading: {
+                type: Boolean,
+                value: true
             },
             headings: {
                 value: function(){
@@ -81,9 +88,14 @@ Example:
         getColumnValue: function(row, key){
             return row[key];
         },
-        ready: function () {
+        _tableDataChanged: function(newData, oldData){
+            if (newData) {
+                this.isLoading = false;
+            }
         },
+        ready: function () {
 
+        },
         attached: function () {
 
         },

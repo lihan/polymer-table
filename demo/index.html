@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>data-table Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../data-table.html">
+    <link rel="import" href="../../iron-ajax/iron-ajax.html">
 </head>
 <body>
 <p>An example of <code>&lt;data-table&gt;</code>:</p>
@@ -25,6 +26,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>Column Ordering</h3>
     <data-table table-data="{{exampleListData}}"
                 headings="{{headings}}">
+    </data-table>
+    <h3>Loading from AJAX</h3>
+    <data-table table-data="{{ajaxData}}">
+        <iron-ajax
+                auto
+                url="http://127.0.0.1:3000/posts/"
+                headers='{"X-Requested-With": "XMLHttpRequest"}'
+                handle-as="json"
+                params='{"_limit": "3"}'
+                last-response="{{ajaxData}}"></iron-ajax>
     </data-table>
 </template>
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>data-table Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../data-table.html">
+</head>
+<body>
+<p>An example of <code>&lt;data-table&gt;</code>:</p>
+
+<template is="dom-bind" id="example">
+    <h3>Basic</h3>
+    <data-table table-data="{{exampleListData}}"></data-table>
+    <h3>Column Ordering</h3>
+    <data-table table-data="{{exampleListData}}"
+                headings="{{headings}}">
+    </data-table>
+</template>
+
+<script>
+    var example = document.getElementById('example');
+    var exampleTableData = [
+        {
+            "id": 0,
+            "age": 35,
+            "eyeColor": "green",
+            "name": "Ethel Singleton",
+            "company": "ECOLIGHT"
+        },
+        {
+            "id": 1,
+            "age": 39,
+            "eyeColor": "brown",
+            "name": "Alana Crane",
+            "company": "QUIZMO"
+        },
+        {
+            "id": 2,
+            "age": 38,
+            "eyeColor": "blue",
+            "name": "Conway Prince",
+            "company": "CINCYR"
+        },
+        {
+            "id": 3,
+            "age": 32,
+            "eyeColor": "green",
+            "name": "Herring Floyd",
+            "company": "GEEKULAR"
+        },
+        {
+            "id": 4,
+            "age": 38,
+            "eyeColor": "blue",
+            "name": "Fletcher Graves",
+            "company": "ECOSYS"
+        },
+        {
+            "id": 5,
+            "age": 40,
+            "eyeColor": "green",
+            "name": "Cecile Bowers",
+            "company": "ENTOGROK"
+        },
+        {
+            "id": 6,
+            "age": 20,
+            "eyeColor": "blue",
+            "name": "Kim Camacho",
+            "company": "ISONUS"
+        },
+        {
+            "id": 7,
+            "age": 36,
+            "eyeColor": "blue",
+            "name": "Glenn Williamson",
+            "company": "ORONOKO"
+        },
+        {
+            "id": 8,
+            "age": 31,
+            "eyeColor": "green",
+            "name": "Jennifer Griffin",
+            "company": "OLUCORE"
+        },
+        {
+            "id": 9,
+            "age": 33,
+            "eyeColor": "brown",
+            "name": "Patti Whitfield",
+            "company": "ZOXY"
+        }
+    ];
+    var headings = ['id', 'name', 'age', 'eyeColor', 'company'];
+    example.exampleListData = exampleTableData;
+    example.headings = headings;
+</script>
+
+</body>
+</html>

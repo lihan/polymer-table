@@ -35,7 +35,7 @@ Example:
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items="{{tableData}}" as="rowColumns">
+                <template is="dom-repeat" items="{{tableData}}" filter="paginated" as="rowColumns">
                     <tr>
                         <template is="dom-repeat" items="{{getColumns(tableData, headings)}}" as="columnName">
                             <td>{{getColumnValue(rowColumns, columnName)}}</td>
@@ -57,12 +57,13 @@ Example:
                 type: Boolean,
                 value: true
             },
-            page: {
-                type: Number
+            pageNumber: {
+                type: Number,
+                value: 1
             },
             pageSize: {
                 type: Number,
-                value: 100
+                value: -1
             },
             tableData: {
                 type: Array,
@@ -92,6 +93,18 @@ Example:
             if (newData) {
                 this.isLoading = false;
             }
+        },
+        paginated: function(item){
+            if (this.pageSize < 0) {
+                // Pagination not enabled
+                return true;
+            }
+            var index = this.tableData.indexOf(item);
+            // Pagination number starts with 1
+            var indexOneStart = index + 1;
+            var itemRightBound = this.pageNumber * this.pageSize;
+            var itemLeftBound = itemRightBound - this.pageSize;
+            return indexOneStart >= itemLeftBound && indexOneStart <= itemRightBound;
         },
         ready: function () {
 

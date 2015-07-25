@@ -37,6 +37,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 params='{"_limit": "3"}'
                 last-response="{{ajaxData}}"></iron-ajax>
     </data-table>
+    <h3>Paginated display (local json)</h3>
+    <data-table table-data="{{exampleListData}}" page-size="3">
 </template>
 
 <script>

@@ -1,0 +1,29 @@
+{
+  "name": "data-table",
+  "version": "1.0.0",
+  "authors": [
+    "Lihan Li <lilihan.it@gmail.com>"
+  ],
+  "description": "An versatile HTML5 table that is sortable, searchable, built-in pagination and loads AJAX data",
+  "keywords": [
+    "table",
+    "sortable",
+    "pagination",
+    "table paginated"
+  ],
+  "main": "data-table.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/lihan/data-table/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.6"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.5",
+    "web-component-tester": "*"
+  }
+}

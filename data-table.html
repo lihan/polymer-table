@@ -27,7 +27,7 @@ Example:
         <table>
             <thead>
                 <tr>
-                    <template is="dom-repeat" items="{{columns}}">
+                    <template is="dom-repeat" items="{{getColumns(tableData, headings)}}">
                         <td>{{item}}</td>
                     </template>
                 </tr>
@@ -35,7 +35,7 @@ Example:
             <tbody>
                 <template is="dom-repeat" items="{{tableData}}" as="rowColumns">
                     <tr>
-                        <template is="dom-repeat" items="{{columns}}" as="columnName">
+                        <template is="dom-repeat" items="{{getColumns(tableData, headings)}}" as="columnName">
                             <td>{{getColumnValue(rowColumns, columnName)}}</td>
                         </template>
                     </tr>
@@ -63,25 +63,16 @@ Example:
                 value: 100
             },
             tableData: {
-                type: Array,
-                notify: true,
-                reflectToAttribute: true
-//                observer: '_dataChanged'
-            },
-            headings: {
                 type: Array
             },
-            columns: {
-                type: Array,
-                computed: 'computeColumnHeadings(tableData, headings)'
+            headings: {
+                value: function(){
+                    return [];
+                }
             }
         },
-        _dataChanged: function(newArray, oldArray) {
-            console.log('data changed');
-            console.log(newArray);
-        },
-        computeColumnHeadings: function(data, headings){
-            if (headings) {
+        getColumns: function(data, headings) {
+            if (headings && headings.length) {
                 return this.headings;
             } else {
                 return Object.keys(data[0]);

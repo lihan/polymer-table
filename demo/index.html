@@ -22,12 +22,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <template is="dom-bind" id="example">
     <h3>Basic</h3>
+    <code>&#x3C;data-table table-data=&#x22;{{exampleListData}}&#x22;&#x3E;&#x3C;/data-table&#x3E;</code>
     <data-table table-data="{{exampleListData}}"></data-table>
     <h3>Column Ordering</h3>
+    &#x3C;data-table table-data=&#x22;{{exampleListData}}&#x22;
+    headings=&#x22;{{headings}}&#x22;&#x3E;
+    &#x3C;/data-table&#x3E;
     <data-table table-data="{{exampleListData}}"
                 headings="{{headings}}">
     </data-table>
     <h3>Loading from AJAX</h3>
+    &#x3C;data-table table-data=&#x22;{{ajaxData}}&#x22;&#x3E;
+    &#x3C;iron-ajax
+    auto
+    url=&#x22;http://127.0.0.1:3000/posts/&#x22;
+    headers=&#x27;{&#x22;X-Requested-With&#x22;: &#x22;XMLHttpRequest&#x22;}&#x27;
+    handle-as=&#x22;json&#x22;
+    params=&#x27;{&#x22;_limit&#x22;: &#x22;3&#x22;}&#x27;
+    last-response=&#x22;{{ajaxData}}&#x22;&#x3E;&#x3C;/iron-ajax&#x3E;
+    &#x3C;/data-table&#x3E;
     <data-table table-data="{{ajaxData}}">
         <iron-ajax
                 auto
@@ -38,7 +51,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 last-response="{{ajaxData}}"></iron-ajax>
     </data-table>
     <h3>Paginated display (local json)</h3>
-    <data-table table-data="{{exampleListData}}" page-size="3">
+    &#x3C;data-table table-data=&#x22;{{exampleListData}}&#x22; page-size=&#x22;3&#x22;&#x3E;&#x3C;/data-table&#x3E;
+    <data-table table-data="{{exampleListData}}" page-size="3"></data-table>
 </template>
 
 <script>

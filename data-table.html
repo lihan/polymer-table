@@ -35,15 +35,21 @@ Example:
                 </tr>
             </thead>
             <tbody>
-                <template is="dom-repeat" items="{{tableData}}" filter="paginated" as="rowColumns">
+                <template id="body" is="dom-repeat" items="{{getPageListItems(tableData, pageNumber)}}" as="rowColumns">
                     <tr>
                         <template is="dom-repeat" items="{{getColumns(tableData, headings)}}" as="columnName">
                             <td>{{getColumnValue(rowColumns, columnName)}}</td>
                         </template>
                     </tr>
                 </template>
-
             </tbody>
+            <template is="dom-if" if="{{isPaginationEnabled(pageSize)}}">
+                <div class="table-control">
+                    <div>Current page<span>{{pageNumber}}</span></div>
+                    <a on-tap="goPreviousPage" hidden="{{!hasPreviousPage(pageNumber)}}" href="javascript:;">Previous page</a>
+                    <a on-tap="goNextPage" hidden="{{!hasNextPage(pageNumber)}}" href="javascript:;">Next page</a>
+                </div>
+            </template>
         </table>
     </template>
 
@@ -94,9 +100,24 @@ Example:
                 this.isLoading = false;
             }
         },
+        _pageNumberChanged: function(newData, oldData){
+            var template = this.$.body; // Use specific selector here
+
+        },
+        getPageListItems: function(tableData, pageNumber) {
+            if (!this.isPaginationEnabled(this.pageSize)) {
+                return tableData;
+            }
+
+            var lowerBound = (pageNumber -1) * this.pageSize;
+            var higherBound = pageNumber * this.pageSize;
+            return tableData.slice(lowerBound, higherBound);
+        },
+        isPaginationEnabled: function(pageSize) {
+            return pageSize > 0;
+        },
         paginated: function(item){
-            if (this.pageSize < 0) {
-                // Pagination not enabled
+            if (!this.isPaginationEnabled(this.pageSize)) {
                 return true;
             }
             var index = this.tableData.indexOf(item);
@@ -105,6 +126,18 @@ Example:
             var itemRightBound = this.pageNumber * this.pageSize;
             var itemLeftBound = itemRightBound - this.pageSize;
             return indexOneStart >= itemLeftBound && indexOneStart <= itemRightBound;
+        },
+        hasPreviousPage: function(pageNumber) {
+            return pageNumber > 1;
+        },
+        hasNextPage: function(pageNumber) {
+            return this.tableData.length - pageNumber * this.pageSize > 0;
+        },
+        goPreviousPage: function(){
+            this.pageNumber -= 1;
+        },
+        goNextPage: function(){
+            this.pageNumber += 1;
         },
         ready: function () {
 

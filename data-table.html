@@ -83,6 +83,12 @@ Example:
                 value: function(){
                     return [];
                 }
+            },
+            sorting: {
+                type: Array,
+                value: function(){
+                    return [];
+                }
             }
         },
         getColumns: function(data, headings) {
@@ -105,13 +111,49 @@ Example:
 
         },
         getPageListItems: function(tableData, pageNumber) {
+            var items;
             if (!this.isPaginationEnabled(this.pageSize)) {
-                return tableData;
+                items = tableData;
+            } else {
+                var lowerBound = (pageNumber -1) * this.pageSize;
+                var higherBound = pageNumber * this.pageSize;
+                items = tableData.slice(lowerBound, higherBound);
             }
-
-            var lowerBound = (pageNumber -1) * this.pageSize;
-            var higherBound = pageNumber * this.pageSize;
-            return tableData.slice(lowerBound, higherBound);
+            if (this.sorting.length > 0) {
+                return this.sorted(items);
+            } else {
+                return items;
+            }
+        },
+        sorted: function(items){
+            function multiSort() {
+                var args = arguments,
+                    sortOrder = 1,
+                    prop = '',
+                    aa = '',
+                    bb = '';
+                return function (a, b) {
+                    for (var i = 0; i < args.length; i++){
+                        if(args[i][0] === '-') {
+                            prop = args[i].substr(1);
+                            sortOrder = -1
+                        } else {
+                            sortOrder=1;
+                            prop=args[i]
+                        }
+                        aa = a[prop];
+                        bb = b[prop];
+                        if (aa < bb) {
+                            return -1 * sortOrder;
+                        }
+                        if (aa > bb) {
+                            return sortOrder;
+                        }
+                    }
+                    return 0;
+                }
+            }
+            return items.sort(multiSort.apply(null, this.sorting));
         },
         isPaginationEnabled: function(pageSize) {
             return pageSize > 0;

@@ -53,6 +53,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <h3>Paginated display (local json)</h3>
     &#x3C;data-table table-data=&#x22;{{exampleListData}}&#x22; page-size=&#x22;3&#x22;&#x3E;&#x3C;/data-table&#x3E;
     <data-table table-data="{{exampleListData}}" page-size="3"></data-table>
+    <h3>Sorting enabled</h3>
+    &#x3C;data-table table-data=&#x22;{{exampleListData}}&#x22; sorting=&#x27;[&#x22;age&#x22;, &#x22;-name&#x22;]&#x27;&#x3E;&#x3C;/data-table&#x3E;
+    <data-table table-data="{{exampleListData}}" sorting='["age", "-name"]'></data-table>
 </template>
 
 <script>
@@ -81,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         {
             "id": 3,
-            "age": 32,
+            "age": 31,
             "eyeColor": "green",
             "name": "Herring Floyd",
             "company": "GEEKULAR"
